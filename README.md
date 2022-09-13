@@ -25,13 +25,12 @@ merge( outer join) では値が決定できなかった行が 5 万件ほとあ�
 (m実装にはす18時間ほどかかる。もっと短くできる方法もあるだろう...)
 
 URL の例
-<https://script.google.com/macros/s/AKfycbzMdkNDAF06uDUaS7SVaXoAd7svX5ZKiXmq4-0cOTqorEj8S0dbOsgYA-x2Uvnc9JYR/exec>
+<https://script.google.com/macros/s/AKfycbzWhSuv7LQ-yVUozIbnWAi8PBfQvfedX2bxxv2-FX1RbpHLWcHssTe_tTihfYHKa3E/exec>
 
 (zipcode 指定を省略した場合は、 100-0001 が指定されたものとして処理する。
 zipcode の - は指定してもしなくても良い)
 
-<https://script.google.com/macros/s/AKfycbzMdkNDAF06uDUaS7SVaXoAd7svX5ZKiXmq4-0cOTqorEj8S0dbOsgYA-x2Uvnc9JYR/exec?zipcode=9000000>
-
+<https://script.google.com/macros/s/AKfycbzWhSuv7LQ-yVUozIbnWAi8PBfQvfedX2bxxv2-FX1RbpHLWcHssTe_tTihfYHKa3E/exec?zipcode=9000000>
 ```bash
 wget -q -O 1.txt "https://script.google.com/macrs/s/AKfycbzMdkNDAF06uDUaS7SVaXoAd7svX5ZKiXmq4-0cOTqorEj8S0dbOsgYA-x2Uvnc9JYR/exec?zipcode=9000000"
 katouyouichis-MacBook-Pro-5365:japanese-addresses katoy$ cat 1.txt
