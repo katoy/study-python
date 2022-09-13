@@ -1,0 +1,79 @@
+function debugDoGet(){
+  const e = {
+    parameter:{
+      zipcode: '907-0024'
+    }
+  }
+  const a = doGet(e);
+}
+
+function doGet(request) {
+  var url = 'https://docs.google.com/spreadsheets/d/13HDvOiLQURnLJWJVIMwI11smTQGTO1a2GnMUX0xZTOA/edit#gid=1108023197';
+  var sheetName = 'locations';
+  var zipcode = request.parameter.zipcode; // "100-0001";
+
+  if (zipcode) {
+    zipcode = zipcode.replace("\-", "");
+    zipcode = parseInt(zipcode);
+  } else {
+    zipcode = 1000001;
+  }
+
+  var data = searcData(url, sheetName, zipcode);
+  // var data = getData(url, sheetName);
+  const json = JSON.stringify({"items": data}, null, 2);
+  const type = ContentService.MimeType.JSON;
+  return ContentService.createTextOutput(json).setMimeType(type);
+
+  //return ContentService.createTextOutput(func + '(' + JSON.stringify(data, null, 2) + ')')
+  // .setMimeType(ContentService.MimeType.JAVASCRIPT);
+}
+
+function getData(url, sheetName) {
+  var sheet = SpreadsheetApp.openByUrl(url).getSheetByName(sheetName);
+  var rows = sheet.getDataRange().getValues();
+  var keys = rows.splice(0, 1)[0];
+  return rows.map(function(row) {
+    var obj = {}
+    row.map(function(item, index) {
+      obj[keys[index]] = item;
+    });
+    return obj;
+  });
+}
+function x_searcData(url, sheetName, zipcode) {
+  var sheet = SpreadsheetApp.openByUrl(url).getSheetByName(sheetName);
+  var rows = sheet.getDataRange().getValues();
+  var keys = rows.splice(0, 1)[0];
+  var obj = {}
+
+  console.log("zipcode:" + zipcode);
+
+  rows.some(function(row) {
+    if(zipcode == row[1]){
+      row.map(function(item, index) {
+        obj[keys[index]] = item;
+      });
+      return true;
+    }
+  });
+  console.log(obj);
+  return obj;
+}
+function searcData(url, sheetName, zipcode) {
+  var sheet = SpreadsheetApp.openByUrl(url).getSheetByName("history");
+  var obj = {}
+
+  console.log("zipcode:" + zipcode);
+  var query_str = '=QUERY(' + sheetName + '!A:E,"WHERE B=' + zipcode+ '")';
+  var values = sheet.getRange(1, 1).setValue(query_str);
+
+  obj = {
+    "郵便番号": sheet.getRange("B2").getValue(),
+    "full_name":sheet.getRange("C2").getValue(),
+    "緯度": sheet.getRange("D2").getValue(),
+    "経度": sheet.getRange("E2").getValue(),
+  }
+  console.log(obj);
+  return obj;
+}
