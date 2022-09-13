@@ -43,3 +43,20 @@ katouyouichis-MacBook-Pro-5365:japanese-addresses katoy$ cat 1.txt
   }
 }
 ```
+
+- curl での呼び出し例
+
+```shell
+$ time curl -L https://script.google.com/macros/s/AKfycbzWhSuv7LQ-yVUozIbnWAi8PBfQvfedX2bxxv2-FX1RbpHLWcHssTe_tTihfYHKa3E/exec
+{
+  "items": {
+    "郵便番号": 1000001,
+    "full_name": "東京都千代田区千代田",
+    "緯度": 35.684052,
+    "経度": 139.752145
+  }
+}
+real	0m3.985s
+user	0m0.027s
+sys	0m0.019s
+```
